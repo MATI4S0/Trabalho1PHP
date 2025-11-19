@@ -28,8 +28,11 @@ do {
             lotomania();
         }
     } elseif ($a == 2) {
+        echo "\033c";
         print "Obrigado por jogar! Volte sempre!\n";
+        break;
     } else {
+        echo "\033c";
         print "Opção inválida! Tente novamente.\n";
     }
 } while ($a <= 2 && $a >= 1);
