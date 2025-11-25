@@ -19,40 +19,6 @@
         $opcao = lobby();
     }
 
-    do {
-        echo "\033c";
-        $a = readline("\nDeseja jogar novamente? (1-Sim / 2-Não): ");
-        if ($a == 1) {
-            echo "\033c";
-            $opcao = lobby();
-
-            if ($opcao == 1) {
-                megaSena();
-            }elseif ($opcao == 2) {
-                quina();
-            }elseif ($opcao == 3) {
-                lotofacil();
-            }elseif ($opcao == 4){
-                lotomania();
-            }else{
-                echo "\033c";
-                print "Opção inválida! Tente novamente.\n";
-                $pularLinha = "===PRESSIONE ENTER PARA CONTINUAR===\n";
-                echo "\033c";
-                $opcao = lobby();
-            }
-        }elseif ($a == 2) {
-            echo "\033c";
-            print "Obrigado por jogar! Volte sempre!\n";
-            break;
-        }elseif ($a != 1 && $a != 2){
-            echo "\033c";
-            print "Opção inválida! Tente novamente.\n";
-
-        }
-    } while ($a != 2);
-
-
 
 function lobby() {
 
@@ -115,7 +81,7 @@ function megaSena(){
         $dezenas = [];
 
         
-        for ($i = 1; $i <= $quantidadejogos; $i++) {
+        for ($jogos = 1; $jogos <= $quantidadejogos; $jogos++) {
             $dezenas = [];
 
             for ($de = 0; $de < $quantidadeDezenas; $de++) {
@@ -128,7 +94,7 @@ function megaSena(){
 
         sort($dezenas);
 
-        print "\n" . $i . "º jogo:\n";
+        print "\n" . $jogos . "º jogo:\n";
         foreach ($dezenas as $d) {
             echo " - $d - ";
         }
@@ -167,6 +133,8 @@ function megaSena(){
         print "\nObrigado por jogar na Mega-Sena!\n";
 
         }
+
+    reiniciar();
 }
 
 function quina(){
@@ -177,6 +145,9 @@ function quina(){
     print "           QUINA           \n";
     print "===========================\n";
 
+    $quantidadejogos = readline("Quantos jogos deseja apostar?: ");
+    echo "\033c";
+
     $quantidadeDezenas = readline("Quantas dezenas você quer jogar (5 a 15)? \n");
     echo "\033c";
  
@@ -186,19 +157,53 @@ function quina(){
 
         $dezenas = [];
 
-        for ($i=0; $i < $quantidadeDezenas ; $i++) { 
-            do {
-                $num = random_int(1,80);
-            }while (in_array($num, $dezenas));
-                $dezenas[] = $num;
-                sort($dezenas);
-        }
-        foreach ($dezenas as $d) {
-            print " - " . $d . " - ";
-        }
-    }
-    print "\nObrigado por jogar na Quina!\n";
+        for ($jogos=1; $jogos <= $quantidadejogos;  $jogos++) { 
+            $dezenas = [];
 
+            for ($de=0; $de < $quantidadeDezenas;  $de++) { 
+                do {
+                    $num = random_int(1, 80);
+                }while (in_array ($num, $dezenas));
+                    $dezenas[] = $num;
+                }
+            sort($dezenas);
+
+            print "\n" . $jogos . "º jogo:\n";
+            foreach ($dezenas as $d) {
+            print " - " . $d . " - ";
+
+            }
+
+            readline();
+            echo "\033c";
+
+        }
+
+        $pularLinha = readline("\n===PRESSIONE ENTER PARA VER O VALOR TOTAL DA APOSTA===\n");
+        echo "\033c";
+
+        $valores = [
+        5 => 15.00,
+        6 => 18.00,
+        7 => 63.00,
+        8 => 168.00,
+        9 => 378.00,
+        10 => 756.00,
+        11 => 1386.00,
+        12 => 2376.00,
+        13 => 3861.00,
+        14 => 6006.00,
+        15 => 9009.00
+        ];
+
+        $valorTotal = $valores [$quantidadeDezenas] * $quantidadejogos;
+        Print ("Será gasto R$" . $valorTotal . "\n");
+        $pularLinha = readline("===PRESSIONE ENTER PARA CONTINUAR===\n");
+        echo "\033c";
+        
+    }
+
+    reiniciar();
 }
 
 function lotofacil(){
@@ -208,6 +213,9 @@ function lotofacil(){
     print "===========================\n";
     print "         LOTOFÁCIL         \n";
     print "===========================\n";
+
+    $quantidadejogos = readline("Quantos jogos deseja apostar?: ");
+    echo "\033c";
 
     $quantidadeDezenas = readline("Quantas dezenas você quer jogar (15 a 20)? \n");
     echo "\033c";
@@ -219,18 +227,48 @@ function lotofacil(){
 
         $dezenas = [];
 
-        for ($i=0; $i < $quantidadeDezenas ; $i++) { 
-            do {
-                $num = random_int(1,25);
-            }while (in_array($num, $dezenas));
-                $dezenas[] = $num;
+        for ($jogos=1; $jogos <= $quantidadejogos ; $jogos++) { 
+            $dezenas = [];
+
+            for ($de=0; $de < $quantidadeDezenas ; $de++) { 
+                do {
+                    $num = random_int(1,25);
+                }while (in_array ($num, $dezenas));
+                    $dezenas[] = $num;
+                }
+
                 sort($dezenas);
-        }
-        foreach ($dezenas as $d) {
-            print " - " . $d . " - ";
-        }
+                print "\n" . $jogos . "º jogo:\n";
+                foreach ($dezenas as $d) {
+                print " - " . $d . " - ";
+                }   
+                
+            readline();
+            echo "\033c";
+
+            }
+        
+        $pularLinha = readline("\n===PRESSIONE ENTER PARA VER O VALOR TOTAL DA APOSTA===\n");
+        echo "\033c";
+
+        $valores = [
+            15 => 14.0,
+            16 => 56.00,
+            17 => 476.00,
+            18 => 2856.00,
+            19 => 13566.00,
+            20 => 54264.00
+        ];
+
+        $valorTotal = $valores [$quantidadeDezenas] * $quantidadejogos;
+        Print ("Será gasto R$" . $valorTotal . "\n");
+        $pularLinha = readline("===PRESSIONE ENTER PARA CONTINUAR===\n");
+        echo "\033c";
+
+        reiniciar();
+
     }
-    print "\nObrigado por jogar na LotoFácil!\n";
+
 }
 
 function lotomania(){
@@ -240,6 +278,9 @@ function lotomania(){
     print "===========================\n";
     print "         LOTOMANIA         \n";
     print "===========================\n";
+
+    $quantidadejogos = readline("Quantos jogos deseja apostar?: ");
+    echo "\033c";
 
     print "Jogo fixo com 50 números\n";
     $quantidadeDezenas = 50;
@@ -251,16 +292,54 @@ function lotomania(){
     }else{
         $dezenas = [];
 
-        for ($i=0; $i < $quantidadeDezenas ; $i++) {
-             do {
-                $num = random_int(0,99);
-            }while (in_array($num, $dezenas));
-                $dezenas[] = $num;
+        for ($jogos=1; $jogos <= $quantidadejogos ; $jogos++) { 
+            $dezenas = [];
+
+            for ($de=0; $de < $quantidadeDezenas; $de++){
+                do {
+                    $num = random_int(0,99);
+                }while (in_array($num, $dezenas));
+                    $dezenas[] = $num;
+                }
                 sort($dezenas);
+
+                print "\n" . $jogos . "º jogo:\n";
+                foreach ($dezenas as $d) {
+                    print " - " . $d . " - ";
+            }
+            
+        readline();
+        echo "\033c";
+
         }
-        foreach ($dezenas as $d) {
-            print " - " . $d . " - ";
-        }
+
+        
+
+        $pularLinha = readline("\n===PRESSIONE ENTER PARA VER O VALOR TOTAL DA APOSTA===\n");
+        echo "\033c";
+
+        $valorTotal = 2.50 * $quantidadejogos;
+        Print ("Será gasto R$" . $valorTotal . "\n");
+        $pularLinha = readline("===PRESSIONE ENTER PARA CONTINUAR===\n");
+        echo "\033c";
+
+        reiniciar();
     }
-    print "\nObrigado por jogar na Lotomania!\n";
+}
+
+function reiniciar(){
+    echo "\033c";
+    $a = readline("\nDeseja jogar novamente? (1-Sim / 2-Não): ");
+    if ($a == 1) {
+        echo "\033c";
+        lobby();
+    }elseif ($a == 2){
+        echo "\033c";
+        print "Obrigado por jogar! Volte sempre!\n";
+        exit;
+    }else {
+        echo "\033c";
+        print "Opção inválida! Tente novamente.\n";
+        reiniciar();
+    }
 }
