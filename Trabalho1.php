@@ -1,25 +1,32 @@
 <?php 
 
     echo "\033c";
-    $opcao = lobby();
 
-    if ($opcao == 1) {
-        megaSena();
-    }elseif ($opcao == 2) {
-        quina();
-    }elseif ($opcao == 3) {
-        lotofacil();
-    }elseif ($opcao == 4){
-        lotomania();
-    }else{
-        echo "\033c";
-        print "Opção inválida! Tente novamente.\n";
-        $pularLinha = "===PRESSIONE ENTER PARA CONTINUAR===\n";
-        echo "\033c";
+    while (true) {
+
         $opcao = lobby();
+
+        if ($opcao == 1) {
+            megaSena();
+        }elseif ($opcao == 2) {
+            quina();
+        }elseif ($opcao == 3) {
+            lotofacil();
+        }elseif ($opcao == 4){
+            lotomania();
+        }
+        echo "\033c";
+        $a = readline("Deseja jogar novamente? (1-Sim | 2-Não)");
+        echo "\033c";
+
+        if($a == 2){
+            echo "\033c";
+            print "Obrigado por jogar!!";
+            exit;
+        }
     }
 
-
+    
 function lobby() {
 
     print "===========================\n";
@@ -134,7 +141,7 @@ function megaSena(){
 
         }
 
-    reiniciar();
+    
 }
 
 function quina(){
@@ -203,7 +210,7 @@ function quina(){
         
     }
 
-    reiniciar();
+    
 }
 
 function lotofacil(){
@@ -265,7 +272,7 @@ function lotofacil(){
         $pularLinha = readline("===PRESSIONE ENTER PARA CONTINUAR===\n");
         echo "\033c";
 
-        reiniciar();
+        
 
     }
 
@@ -323,23 +330,6 @@ function lotomania(){
         $pularLinha = readline("===PRESSIONE ENTER PARA CONTINUAR===\n");
         echo "\033c";
 
-        reiniciar();
-    }
-}
-
-function reiniciar(){
-    echo "\033c";
-    $a = readline("\nDeseja jogar novamente? (1-Sim / 2-Não): ");
-    if ($a == 1) {
-        echo "\033c";
-        lobby();
-    }elseif ($a == 2){
-        echo "\033c";
-        print "Obrigado por jogar! Volte sempre!\n";
-        exit;
-    }else {
-        echo "\033c";
-        print "Opção inválida! Tente novamente.\n";
-        reiniciar();
+        
     }
 }
